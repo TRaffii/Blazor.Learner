@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Blazor.Learner.Server.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Sqlite;
 
 namespace Blazor.Learner.Server
 {
@@ -27,7 +28,7 @@ namespace Blazor.Learner.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDBContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDBContext>();
             services.ConfigureApplicationCookie(options =>
             {
@@ -59,6 +60,11 @@ namespace Blazor.Learner.Server
             }
 
             app.UseHttpsRedirection();
+
+            // This methods serves the WebAssembly framework files when a request is made to root path. 
+            //This method also take path parameter that can be used if the WebAssembly project is only served 
+            //from part of the project, giving options to combine web assembly project with a web application
+
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
