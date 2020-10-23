@@ -12,6 +12,8 @@ using Blazor.Learner.Server.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Sqlite;
+using FluentValidation;
+using Blazor.Learner.Shared.Models;
 
 namespace Blazor.Learner.Server
 {
@@ -43,6 +45,7 @@ namespace Blazor.Learner.Server
       services.AddControllersWithViews();
       services.AddRazorPages();
       services.AddSwaggerGen();
+      services.AddValidatorsFromAssemblyContaining<Shared.Models.Developer>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

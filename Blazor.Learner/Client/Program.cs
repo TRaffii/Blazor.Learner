@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Components.Authorization;
 using Blazor.Learner.Client.Services;
+using FluentValidation;
+using Blazor.Learner.Shared.Models;
 
 namespace Blazor.Learner.Client
 {
@@ -24,6 +26,7 @@ public class Program
         builder.Services.AddScoped<CustomStateProvider>();
         builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<CustomStateProvider>());
         builder.Services.AddScoped<IAuthService, AuthService>();
+        builder.Services.AddValidatorsFromAssemblyContaining<Developer>();
 
         builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
